@@ -13,6 +13,9 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-      User::factory()->count(10)->hasPosts(1)->create();
+    
+      $user = \App\Models\User::factory(3)
+            ->has(\App\Models\Post::factory()->count(3))
+            ->create();
     }
 }
