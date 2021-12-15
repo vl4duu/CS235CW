@@ -8,5 +8,7 @@
 			<li> Email: {{$user -> email}}</li>
 			<li> Email verified at: {{ $user -> email_verified_at ?? 'Unknown'}}</li>
 	</ul>
-    <a href ="/users/">Go back :)</a>
+	<div>
+		<a class="btn btn-primary" href ="/users/" role="button">Go back!</a>
+	</div>
 @endsection

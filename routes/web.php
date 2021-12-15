@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,14 @@ Route::get('/create/users', [UserController::class, 'create'])->name('create.use
 
 Route::post('/users', [UserController::class, 'store'])->name('user.store');
 
-Route::post('/posts', [PostController::class, 'index'])->name('post.store');
+Route::get('/posts', [PostController::class, 'index'])->name('post.list');
+
+Route::post('/posts', [PostController::Class, 'store'])->name('post.store');
+
+Route::get('/create/post', [PostController::Class, 'create'])->name('post.create');
+
+Route::get('/post/details/{id}', [PostController::Class, 'show'])->name('post.show');
+
+Route::post('/comment/store', [CommentController::Class, 'store'])->name('comment.store');
 
 require __DIR__.'/auth.php';

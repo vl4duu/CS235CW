@@ -1,3 +1,8 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+.center {
+    border: 5px solid #FFFF00;
+    display: flex;
+    justify-content: center;
+    }
