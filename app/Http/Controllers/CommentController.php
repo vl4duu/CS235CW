@@ -1,12 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Auth;
+use Auth;
 
-class CommentController extends Controller
-{
+class CommentController extends Controller{
+
+    // public function __construct(){
+    //     $this->middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -35,18 +41,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-        $validatedData = $request->validate([
-            'content' => 'required|max:255',
-        ]);
-
-
-        $c = new Comment;
-        $c->content = $validatedData['content'];
-        $c->user_id = Auth::id();
-        $c->save();
-        session()->flash('message', 'User was created.');
-        return redirect()->route('post.show');
+        // 
     }
 
     /**
@@ -92,5 +87,23 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         //
+    }
+
+
+    public function apiStore(Request $request){
+        $c = new Comment();
+        $c->content = $request['content'];
+        $c->post_id = $request['postId'];
+        $c->user_id = $request['userId'];
+        $c -> save();
+        return $c;
+    }
+
+    public function apiIndex(){
+        $comms = DB::table('users')
+            ->rightJoin('comments', 'users.id', '=', 'comments.user_id')
+            ->get();
+
+        return $comms;
     }
 }

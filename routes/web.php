@@ -20,26 +20,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users', [UserController::class, 'index'])->middleware(['auth'])->name('users.index');
 
-Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+Route::get('/users/{id}', [UserController::class, 'show'])->middleware(['auth'])->name('users.show');
 
-Route::get('/create/users', [UserController::class, 'create'])->name('create.user');
+Route::get('/create/users', [UserController::class, 'create'])->middleware(['auth'])->name('create.user');
 
-Route::post('/users', [UserController::class, 'store'])->name('user.store');
+Route::post('/users', [UserController::class, 'store'])->middleware(['auth'])->name('user.store');
 
-Route::get('/posts', [PostController::class, 'index'])->name('post.list');
+Route::get('/home', [PostController::class, 'index'])->name('post.list');
 
-Route::post('/posts', [PostController::Class, 'store'])->name('post.store');
+Route::post('/posts', [PostController::Class, 'store'])->middleware(['auth'])->name('post.store');
 
-Route::get('/create/post', [PostController::Class, 'create'])->name('post.create');
+Route::get('/create/post', [PostController::Class, 'create'])->middleware(['auth'])->name('post.create');
 
-Route::get('/post/details/{id}', [PostController::Class, 'show'])->name('post.show');
+Route::get('/post/details/{id}', [PostController::Class, 'show'])->middleware(['auth'])->name('post.show');
 
-Route::post('/comment/store', [CommentController::Class, 'store'])->name('comment.store');
+Route::post('/comment/store', [CommentController::Class, 'store'])->middleware(['auth'])->name('comment.store');
 
 require __DIR__.'/auth.php';

@@ -49,7 +49,7 @@ class PostController extends Controller
         $p->user_id = Auth::id();
         $p->save();
         session()->flash('message', 'User was created.');
-        return redirect()->route('post.show');
+        return redirect()->route('post.show', ['id' => $p->id]);
     }
 
     /**
@@ -62,7 +62,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $comments = Comment::where('user_id', '=', $id);
-        return view('posts.show', ['post' => $post, 'comments' => $comments]);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
@@ -97,5 +97,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+    public function apiIndex(){
+        $posts = Post::all();
+        return $posts;
     }
 }
